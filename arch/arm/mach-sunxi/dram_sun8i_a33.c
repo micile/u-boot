@@ -35,6 +35,17 @@ static void mctl_set_cr(struct dram_para *para)
 	struct sunxi_mctl_com_reg * const mctl_com =
 			(struct sunxi_mctl_com_reg *)SUNXI_DRAM_COM_BASE;
 
+       printf("**** mctl_set_cr 0x%X%X%X%X%X%X%02X\n", (unsigned int)para->cs1, (unsigned int)para->seq, (unsigned int)para->bank, (unsigned int)para->rank, (unsigned int)para->rows, (unsigned int)para->bus_width, (unsigned int)para->page_size);
+
+printf("%d\n", para->cs1);
+printf("%d\n", para->seq);
+printf("%d\n", para->bank);
+printf("%d\n", para->rank);
+printf("%d\n", para->rows);
+printf("%d\n", para->bus_width);
+printf("%d\n", para->page_size);
+
+
 	writel(MCTL_CR_CS1_CONTROL(para->cs1) | MCTL_CR_UNKNOWN |
 	       MCTL_CR_CHANNEL(1) | MCTL_CR_DDR3 |
 	       (para->seq ? MCTL_CR_SEQUENCE : 0) |
