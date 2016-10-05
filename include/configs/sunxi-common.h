@@ -281,6 +281,11 @@ extern int soft_i2c_gpio_scl;
 #define CONFIG_SUNXI_GPIO
 
 #ifdef CONFIG_VIDEO
+
+#define CONFIG_CMD_BMP
+#define CONFIG_SPLASH_SOURCE
+#define CONFIG_SPLASH_SCREEN
+
 /*
  * The amount of RAM to keep free at the top of RAM when relocating u-boot,
  * to use as framebuffer. This must be a multiple of 4096.
@@ -493,8 +498,10 @@ extern int soft_i2c_gpio_scl;
 
 #ifdef CONFIG_VIDEO
 #define CONSOLE_STDOUT_SETTINGS \
-	"stdout=serial,vga\0" \
-	"stderr=serial,vga\0"
+	"stdout=serial,\0" \
+	"stderr=serial,vga\0" \
+	"splashsource=mmc_fs\0" \
+	"splashimage=0x42000000\0"
 #else
 #define CONSOLE_STDOUT_SETTINGS \
 	"stdout=serial\0" \
