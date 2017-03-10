@@ -64,6 +64,7 @@ ENTRY(psci_system_suspend)
 ENTRY(psci_set_suspend_mode)
 ENTRY(psi_stat_residency)
 ENTRY(psci_stat_count)
+ENTRY(psci_get_mmu_sec_reg)
 	mov	r0, #ARM_PSCI_RET_NI	@ Return -1 (Not Implemented)
 	mov	pc, lr
 ENDPROC(psci_stat_count)
@@ -84,6 +85,7 @@ ENDPROC(psci_cpu_on)
 ENDPROC(psci_cpu_off)
 ENDPROC(psci_cpu_suspend)
 ENDPROC(psci_version)
+ENDPROC(psci_get_mmu_sec_reg)
 .weak psci_version
 .weak psci_cpu_suspend
 .weak psci_cpu_off
@@ -102,6 +104,7 @@ ENDPROC(psci_version)
 .weak psci_set_suspend_mode
 .weak psi_stat_residency
 .weak psci_stat_count
+.weak psci_get_mmu_sec_reg
 
 _psci_table:
 	.word	ARM_PSCI_FN_CPU_SUSPEND
@@ -112,6 +115,8 @@ _psci_table:
 	.word	psci_cpu_on
 	.word	ARM_PSCI_FN_MIGRATE
 	.word	psci_migrate
+	.word	ARM_PSCI_FN_GET_MMU_SEC_REG
+	.word	psci_get_mmu_sec_reg
 	.word	ARM_PSCI_0_2_FN_PSCI_VERSION
 	.word	psci_version
 	.word	ARM_PSCI_0_2_FN_CPU_SUSPEND

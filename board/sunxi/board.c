@@ -126,6 +126,12 @@ int board_init(void)
 	gpio_direction_output(CONFIG_MACPWR, 1);
 #endif
 
+	/* Enable JTAG */
+// 	sunxi_gpio_set_cfgpin(SUNXI_GPF(5), 3);
+// 	sunxi_gpio_set_cfgpin(SUNXI_GPF(3), 3);
+// 	sunxi_gpio_set_cfgpin(SUNXI_GPF(0), 3);
+// 	sunxi_gpio_set_cfgpin(SUNXI_GPF(1), 3);
+
 	/* Uses dm gpio code so do this here and not in i2c_init_board() */
 	return soft_i2c_board_init();
 }

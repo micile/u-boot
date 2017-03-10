@@ -270,3 +270,33 @@ void __secure psci_arch_init(void)
 	reg &= ~BIT(0); /* Secure mode */
 	cp15_write_scr(reg);
 }
+
+int __secure psci_get_mmu_sec_reg(u32 __always_unused unused, int id)
+{
+	u32 val;
+	switch (id) {
+		case 0:
+			asm volatile ("mrc p15, 2, %0, c0, c0, 0" : "=r"(val));	// CSSELR Cache Size Selection Register
+			return val;
+		case 1:
+			asm volatile ("mrc p15, 0, %0, c3, c0, 0" : "=r"(val));	// DACR Domain Access Control Register
+			return val;
+		case 2:
+			asm volatile ("mrc p15, 0, %0, c2, c0, 0" : "=r"(val));	// TTBR0 Translation Table Base Register 0
+			return val;
+		case 3:
+			asm volatile ("mrc p15, 0, %0, c2, c0, 1" : "=r"(val));	// TTBR1 Translation Table Base Register 1
+			return val;
+		case 4:
+			asm volatile ("mrc p15, 0, %0, c2, c0, 2" : "=r"(val));	// TTBCR Translation Table Base control Register
+			return val;
+		case 5:
+			asm volatile ("mrc p15, 0, %0, c1, c0, 0" : "=r"(val)); // SCTLR System Control Register
+			return val;
+		case 6:
+			asm volatile ("mrc p15, 0, %0, c12, c0, 1" : "=r"(val)); // MVBAR
+			return val;
+		default:
+			return ARM_PSCI_RET_NI;
+	}
+}
